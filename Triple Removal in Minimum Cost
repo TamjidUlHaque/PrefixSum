@@ -1,0 +1,51 @@
+/*Intuition :-
+    Ekta array dewa ache , oi array er element gula hoy 0 nahole 1 . Array er jonno
+    q songkhok query dewa ache jekhane left ar right boundary thik kore dewa ache .
+    Amader ke bolte hobe oi range er moddhe jei number gula thakbe oikhaner number
+    gula ke remove kore array tar length 0 bananu jabe ki na .
+
+    Range er vitore je operation kora jabe ta holo -->
+
+    Range er moddhe thaka 3 ta same value select korte hobe . Select korar pore 
+    oi 3 ta value ke remove kore dibo . Ekhane remove korte je cost lagbe ta holo
+    min(j-i,k-j) . Sorbonimno koto khoroch e amra array tar shob element khali korte
+    parbo ta bolte hobe . 
+
+    Ekhane prefix sum er maddhome 0 ar 1 er count oi range e hishab kora hocche .
+    Ar binary Search er maddhome khuja hocche oi range er moddhe duita adjacent 
+    element ache ki nah . Jodi oi range e duita adjacent element thake tobe 
+    operation er cost hobe proti 3 ta kore remove korar jonno 1 . Nahole prothom
+    removal er jonno cost hobe 2 . Baki gular jonne cost hobe 1 .
+
+*/
+
+void giveMeMyGloryBack() {
+    ll n , query ; cin >> n >> query ; vll vec(n) ; tamjid(n) cin >> vec[i] ;
+    vll zero(1,0) , one(1,0) , adjacent ;
+ 
+    for(int i = 0 ; i < n ; i++){
+        zero.pb(zero.back()+(vec[i]==0)) ;
+        one.pb(one.back()+(vec[i]==1)) ;
+    }
+
+    for(int i = 1 ; i < n ; i++){
+        if(vec[i]==vec[i-1]) adjacent.pb(i) ;
+    }
+ 
+    while(query--){
+        ll low , high ; cin >> low >> high ; 
+        ll cnt0 = zero[high] - zero[low-1] ; 
+        ll cnt1 = one[high] - one[low-1] ;
+        if((cnt0 % 3 != 0) or (cnt1 % 3 != 0)){
+            cout << -1 << endl ;
+        }else{
+            ll ans = cnt0/3 + cnt1/3 + 1 ;
+            auto ptr = lower_bound(all(adjacent),low) ;
+            if(ptr != adjacent.end()){
+                ll rptr = *ptr+1 ; 
+                if(rptr<=high) ans-- ;
+            }
+            cout << ans << endl ;
+        }
+    }
+}
