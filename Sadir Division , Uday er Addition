@@ -1,0 +1,58 @@
+/*Intuition :-
+    Ekhane ekta games type er kaaj choltase jekhane sadi chaitase shobgula number
+    re 1 banaiya laito . Uday chaitase jeno joto beshi songkhok move sadi re diya
+    dewani jay .
+
+    1) Sadir move --> 1 theke boro jekuno songkha re select koira dui diya vaag
+    kora . Mane a[i] > 1 ? a[i] /= 2 .
+
+    2) Uday er move --> 1 theke boro jekuno songkha re select koira er value te
+    1 add kora . Mane a[i]++ , if(a[i]>1) ;
+
+    Ekhane tin dhoroner ghotona ghotbe . 
+
+    BitLength of a Number = 64 - __builtin_clzll(n) = log2(n)+1 .
+
+    1) Jodi songkha ta power of 2 hoy tahole sadi (bitLength of number - 1) move e
+    value ke 1 e convert kore felte parbe .
+
+    2) Jodi songkha ta power of 2 + 1 hoy tahole duita ghotona ghotbe :-
+
+    i) Jodi sadi first move dey tahole bitLength-1 move lagbe .
+    ii) Jodi uday first move dey tahole bitLenght er shoman move lagbe .
+
+    3) Jodi songkha ta onno jekuno rokom songkha hoy tahole bitLength er shoman
+    move er proyojon hobe .
+
+*/
+
+ll BitLength(ll n){
+    return 64LL - __builtin_clzll(n) ;
+}
+
+
+void giveMeMyGloryBack() {
+    ll n , q ; cin >> n >> q ; vll vec(n+1,0),storeLen(n+1,0),both(n+1,0) ;
+    for(int i = 1 ; i <= n ; i++){
+        cin >> vec[i] ;
+        storeLen[i] = BitLength(vec[i]) - 1 ;
+        if(!powerof2(vec[i])){ // Jodi vec[i] er value 2 er power na hoy .
+            if((vec[i]-1)&(vec[i]-2)){ // Jodi vec[i] er value 2^n+1 na hoy .
+                storeLen[i]++ ;
+            }else{ // vec[i] er value 2^n+1 . Both mane duijon er jonno helpful.
+                both[i]++ ;
+            }
+        }
+    }
+    for(int i = 1 ; i <= n ; i++){ // Calculating Prefix Sums .
+        storeLen[i] += storeLen[i-1] ; both[i] += both[i-1] ;
+    }
+
+    while(q--){
+        ll l , r ; cin >> l >> r ; 
+        ll ans = storeLen[r] - storeLen[l-1] ;
+        ll special = both[r] - both[l-1] ;// Duijon er jonno dorkari number .
+        cout << ans + special/2 << endl ;
+    }
+    
+}
