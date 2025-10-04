@@ -49,3 +49,47 @@ void giveMeMyGloryBack() {
         }
     }
 }
+
+____________________________________________________________ANOTHER SOLUTION FOR THIS PROBLEM__________________________________________________________________________.
+
+
+vll adjacent ;
+
+bool hasAdjacent(ll l , ll r){
+    ll low = 0 ; ll high = len(adjacent) - 1 ;
+    while(low <= high){
+        ll mid = low + (high-low)/2 ;
+        if(adjacent[mid]>=l and adjacent[mid] < r) return true ;
+        else if(adjacent[mid]<l) low = mid+1 ;
+        else high = mid-1 ;
+    }
+    return false ;
+}
+
+void giveMeMyGloryBack() {
+    ll n , query ; cin >> n >> query ;  vll vec(n+1) ; 
+    for(int i = 1 ; i <= n ; i++) cin >> vec[i] ;
+    vll pSzero(1,0) , pSone(1,0)  ;
+    for(int i = 1 ; i <= n ; i++){
+        pSzero.pb(pSzero.back()+(vec[i]==0)) ; pSone.pb(pSone.back()+(vec[i]==1)) ;
+    }
+
+    for(int i = 1 ; i < n ; i++){
+        if(vec[i]==vec[i+1]) adjacent.pb(i) ;
+    }
+
+    while(query--){
+        ll l , r ; cin >> l >> r ;
+        ll zero = pSzero[r] - pSzero[l-1] ;
+        ll one = pSone[r] - pSone[l-1] ;
+        ll ans = zero / 3LL + one / 3LL ; 
+        if((zero%3 != 0) or (one%3 != 0)){
+            cout << -1 << endl ; continue ;
+        }
+        if(!hasAdjacent(l,r)) ans++ ;
+        cout << ans << endl ;
+    }    
+
+    adjacent.clear() ; // It's very important clear the adjacent index array .
+
+}
