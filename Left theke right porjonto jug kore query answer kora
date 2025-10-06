@@ -1,0 +1,24 @@
+
+/*Intuition :-
+    Proshner moddhe bola hoise koyekta operation dewa hobe jekhane left theke right
+    range e kuno ekta value val add korte hobe . Shob gula operation sesh query
+    te kichu index dibe . Index gula te value gula boro theke chuto akare thakbe.
+    Given query index er value gula print korte hobe .
+
+*/
+
+
+void giveMeMyGloryBack() {
+    ll n , r , q ; cin >> n >> r >> q ; vll preSum(n+1,0) ; 
+    vll vec(n) ; tamjid(n) cin >> vec[i] ;
+    while(r--){
+        ll l , h , val ; cin >> l >> h >> val ; l-- ;
+        preSum[l] += val ; preSum[h] -= val ;
+    }
+    tamjid(n) preSum[i+1] += preSum[i] ;
+    tamjid(n) vec[i] += preSum[i] ; rsort(vec) ; 
+    while(q--){
+        ll idx ; cin >> idx ; idx-- ;
+        cout << vec[idx] << endl ;
+    }
+}
