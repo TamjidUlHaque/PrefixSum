@@ -1,0 +1,41 @@
+_______________________________________________________________1D PREFIX SUM__________________________________________________________
+
+void prefixSum1D(){
+    ll n ; cin >> n ; vector<long long> vec(n) ,preSum(n+1,0) ; 
+    for(int i = 0 ; i < n ; i++) cin >> vec[i] ;
+    for(int i = 1 ; i <= n ; i++) preSum[i] = preSum[i-1]+vec[i] ;
+
+    ll query ; cin >> query ; 
+    while(query-->0){
+        ll l , r ; cin >> l >> r ; 
+        cout << sum[r] - sum[l-1] << endl ;
+    }
+}
+
+_________________________________________________________________2D PREFIX SUM_________________________________________________________
+
+const int N = 1e3 + 10 ;
+ll preSum[N][N] ;
+
+void prefixSum2D(){
+    ll n , m ; cin >> n >> m ; ll arr[n][m] ;
+    for(int i = 0 ; i < n ; i++){
+        for(int j = 0 ; j < m ; j++){
+            cin >> arr[i][j] ;
+        }
+    }
+
+    for(int i = 1 ; i <= n ; i++){
+        for(int j = 1 ; j <= m ; j++){
+            preSum[i][j] = arr[i][j] + preSum[i-1][j] + preSum[i][j-1] - preSum[i-1][j-1] ;
+        }
+    }
+
+    ll query ; cin >> query ; 
+    while(query-->0){
+// Ekhane (ur,uc) and (dr,dc) dara jei rectangle create hoise oi rectangle er vitorer element
+// gular summation koto hobe ta print korte bola hoise .
+        ll ur , uc , dr , dc ; cin >> ur >> uc >> dr >> dc ; 
+        cout << preSum[dr][dc] - preSum[ur-1][dc] - preSum[dr][uc-1] + preSum[ur-1][uc-1] << endl ;
+    }
+}
