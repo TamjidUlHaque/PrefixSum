@@ -1,0 +1,33 @@
+/*Intuition :-
+    Ekhane proshner moddhe bola hoise je amake ekta array dewa hobe jar moddhe
+    n songkhok number thakbe . Sadi eita pochondo kore na je oi array er kuno
+    ekta subArray er summation 0 hobe . Tar jonno jei part e value 0 hoy oi 
+    jaygay amra amader iccha moto value insert korte parbo . Shorbonimno koyta
+    value insert korar maddhome amra ensure korte parbo je array er moddhe emon
+    kuno segment nai jar summation 0 . 
+
+    Kuno ekta subArray er summation 0 , eita bujhar upay holo jodi array er kuno
+    ekta position porjonto summation hoy x , erpore kichu dure giye abar summation
+    x hoy tahole bujha gelo prothome pawa x theke ekhon porjonto jei value gula
+    CurSum er moddhe add hoise eder jugfol er man 0 . Emon part khuje pele ans++ 
+    kore dibo . Ar na hole notun value gula set er moddhe input korte thakbo .
+*/
+
+void giveMeMyGloryBack() {
+    ll n ; cin >> n ; vll vec(n) ; tamjid(n) cin >> vec[i] ; 
+    set<ll> distinct ; distinct.insert(0) ; 
+    ll ans = 0LL ; ll curSum = 0 ; 
+    for(auto it = vec.begin() ; it != vec.end() ; it++){
+        curSum += *(it) ;
+        if(distinct.count(curSum)){
+            ans++ ; 
+            distinct.clear() ; // Jodi kuno segment e infinity insert kori tahole ager value dorkar nai.
+            distinct.insert(0) ; // Eita rakha hoise jeno vec[i] = 0 hole handle korte pare.
+            distinct.insert(*it) ;
+            curSum = *(it) ;
+        }else{
+            distinct.insert(curSum) ;
+        }
+    }
+    cout << ans << endl ;
+}
