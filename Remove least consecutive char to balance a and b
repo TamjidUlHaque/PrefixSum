@@ -1,0 +1,54 @@
+/*Intuition :-
+    Ekhane proshner moddhe bola hoise je shobcheye kom koto gula consecutive 
+    character remove korar maddhome emon ekta string pawa shomvob jar moddhe 
+    count(a) == count(b) .
+
+    Jodi proshner moddhe given string e count(a) == count(b) hoy tahole amader
+    ke kichui korte hobe nah . Answer hobe 0 . 
+
+    Ekhon answer khuje ber korar jonno amra ekta difference array toiri korbo jekhane
+    b ke amra -1 dara denote kortesi ar a ke amra +1 dara denote kortesi . Er karon
+    amra target Difference hishabe jei value ta choose korchi sekhane a er count 
+    ke + and b er count ke - rakha hoise . Target = count(a) - count(b) .
+
+    Ekhon difference array toiri hoise . Ekhon oi difference array theke calculate
+    korte hobe shobcheye chuto koto gula character delete kore string ta ke a ar b
+    er substring bananu jabe . Difference array te ekta loop cholbe jekhane proti
+    iteration e difference array er kuno ekta value latest kun index e appear hoise
+    oita updated hobe . Ekhon ekta variable toiri kora hoise required naam e . 
+    Er kaaj holo current difference ar target er moddhe je difference sheita koto 
+    ta ber kora . Ekhon jodi map er moddhe er age kuthau required difference ta 
+    appear hoye thake tahole oi distance ta calculate kore emon shob gula distance
+    er minimum ta ans er moddhe store hocche . Jodi ans er value n er cheye kom 
+    hoy tahole ans songkhok consecutive char remove korar maddhome a , b er string
+    pawa shomvob . Jodi ans < n na hoy tahole shob char remove korte hobe . Ekhetre
+    answer hobe -1 . 
+*/
+
+void giveMeMyGloryBack() {
+    ll n ; cin >> n ; string s ; cin >> s ; 
+    ll a = count(all(s),'a') ; ll b = count(all(s),'b') ;
+    if(a==b){
+        cout << 0 << endl ; return ;
+    }
+    ll target = a - b ; vll diffArray(1,0) ;
+    tamjid(n){
+        ll x = (s[i] == 'a' ? 1 : -1)  ;
+        diffArray.pb(diffArray.back()+x) ;
+    }
+
+    unordered_map<ll,ll> mp ; ll ans = n + 1 ; mp[0] = 0 ;
+
+    for(int i = 1 ; i < len(diffArray) ; i++){
+        ll required = diffArray[i] - target ;
+        if(mp.find(required) != mp.end()){
+            ll span = i - mp[required] ;
+            ans = min(ans,span) ;
+        }
+        mp[diffArray[i]] = i ;
+    }
+
+    if(ans<n) cout << ans << endl ;
+    else cout << -1 << endl ;
+    
+}
