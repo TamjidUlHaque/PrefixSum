@@ -1,0 +1,32 @@
+/*Intuition :-
+    Proshner moddhe bola hoise je array er element gula ke ekta kore stick
+    chinta korte a[i] length er . Ekhon jodi stick gula re vertically rakha
+    hoy ba horizontally rakha hoy dui khetre e dekhte same hobe ki na ? 
+    Orthat array er element gula symmetrical ki na .
+
+    Ekhane observe korar bepar ta holo array er element gula muloto ekhane 
+    vertical er height nirdesh kortese ar horizontal er width nirdesh kortese.
+    Tar mane first value ta khub important , eita jodi n er shoman na hoy 
+    tahole symmetrical houwa shomvob na karon er porer element gula er theke
+    chuto ba shoman , width er last ghor ta khali thakbe jodi vec.front() != n hoy.
+
+    Erpore prefix sum use kore horizontal obosthay value gula ber korsi . Ber korar
+    pore jodi eita vartical er moto same value dey tahole yes , nahole no .
+
+*/
+void giveMeMyGloryBack() {
+    ll n ; cin >> n ; vll vec(n) ; tamjid(n) cin >> vec[i] ;
+    if(n==1){
+        if(vec.front()==1) yes ;
+        else no ; 
+        return ;
+    }
+    if(vec.front() != n) no ;
+    else{
+        vll ans(n,0) ;
+        tamjid(n) ans[vec[i]-1]++ ;
+        for(int i = n-2 ; i >= 0 ; i--) ans[i] += ans[i+1] ;
+        if(ans==vec) yes ;
+        else no ;
+    }
+}
