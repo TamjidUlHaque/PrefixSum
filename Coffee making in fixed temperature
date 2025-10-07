@@ -1,0 +1,31 @@
+/*Intuition :-
+  Proshner moddhe bola hoise je amake kichu coffee er bornona dewa hobe , eder ke kun temperature e bananu hoise .
+  Er pore amake q songkhok query dibe . Jiggasha korbe je low theke high temp er vitore koto gula coffee bananu hoise.
+
+  Normally eita calculate korte gele complexity O(n*q) hoye jabe . Tai amra prefix sum use kore problem ta solve korsi .
+
+*/
+const int given = 2e5+3 ;
+ll coffee[given] ;
+ll preSum[given] ;
+ll ans[given] ;
+
+void giveMeMyGloryBack() {
+    ll n , req , query ; cin >> n >> req >> query ;
+    while(n-->0){
+        ll left , right ; cin >> left >> right ;
+        coffee[left]++ ; coffee[right+1]-- ;
+    }
+    for(int i = 1 ; i < given ; i++) preSum[i] = preSum[i-1] + coffee[i] ;
+    for(int i = 1 ; i < given ; i++){
+        if(preSum[i]>=req) ans[i] = 1 ;
+    }
+
+    for(int i = 1 ; i < given ; i++) ans[i] += ans[i-1] ;
+
+    while(query-->0){
+        ll l , h ; cin >> l >> h ; 
+        cout << ans[h]-ans[l-1] << endl ;
+    }
+
+}
