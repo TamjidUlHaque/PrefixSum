@@ -1,0 +1,36 @@
+/*Intuition :-
+    Proshner moddhe bola hoise je koto gula player ache jara ei tournament jitte
+    parbe . Tournament e total n-1 ta match hobe jekhane proti ta match er player
+    random vabe select kora jabe . Jei player er kache token beshi se match jitbe
+    and je harse tar shob gula token o se peye jabe . Jodi duita player er token
+    shoman hoye jay tahole jekuno ekjon ke winner hishabe declare kora jabe .
+
+    Ekhane prothome playder tader strength er vitti te chuto theke boro kromanusare
+    sort kora hoise . Then eder moddhe prefix sum newa hoise . Jodi,
+    strength of the current player <= cumulative sum of all the previous player hoy
+    tahole current player er cheye kom strength er player ta jitte parbe . Eivabe
+    jotokkhon porjonto flow thik thakbe totokkhon porjonto answer e store kore rakha
+    index gula push korte thakbo . Jodi flow venge jay tahole break kore beriye jabo.
+
+    Ekhane break kora important , karon jodi kuno ekta player tar porer player ke 
+    harate na pare tahole ager fight e ke jitse eita ar matter korbe na . 
+
+*/
+
+void giveMeMyGloryBack() {
+    ll n ; cin >> n ; vector<pair<ll,ll>> vec ;
+    tamjid(n){
+        ll x ; cin >> x ; vec.pb({x,i}) ;
+    }
+    nsort(vec) ; vll preSum(1,0) , ans(1,vec.back().S) ; 
+    for(int i = 0 ; i < n ; i++){
+        preSum.pb(preSum.back()+vec[i].F) ;
+    }
+    for(int i = n-1 ; i > 0 ; i--){
+        if(vec[i].F<=preSum[i]) ans.pb(vec[i-1].S) ;
+        else break ;
+    }
+    nsort(ans) ; cout << len(ans) << endl ;
+    for(auto val:ans) cout << val+1 << gap ;
+    sesh ;
+}
