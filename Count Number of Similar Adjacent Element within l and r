@@ -1,0 +1,21 @@
+/*Intuition :-
+    Ekhane proshner moddhe bola hoise je ekta string ache . Amader ke kichu query
+    dibe . Query er moddhe left ar right range dewa thakbe . Amader ke bolte hobe
+    left to right range er vitore koto gula element s[i] == s[i+1] mene chole .
+
+*/
+
+
+void giveMeMyGloryBack() {
+    string s ; cin >> s ; ll n = len(s) ;
+    ll query ; cin >> query ; vi preSum(n,0) ;
+    
+    for(int i = 1 ; i < n ; i++){
+        preSum[i] += preSum[i-1] + (s[i]==s[i-1]) ;
+    }
+
+    while(query-->0){
+        ll l , r ; cin >> l >> r ;
+        cout << preSum[r-1] - preSum[l-1] << endl ;
+    }
+}
