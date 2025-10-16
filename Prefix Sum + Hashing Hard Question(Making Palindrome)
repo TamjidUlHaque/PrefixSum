@@ -1,0 +1,42 @@
+/*Intuition :-
+
+*/
+
+const int N = 1e5 + 33 ;
+ll hashArray[N][26] ;
+
+
+void giveMeMyGloryBack() {
+    ll n ; cin >> n ; string s ; cin >> s ; 
+
+    for(int i = 0 ; i <= N ; i++){
+        for(int j = 0 ; j < 26 ; j++){
+            hashArray[i][j] = 0 ;
+        }
+    }
+
+    for(int i = 0 ; i < n ; i++){ // Populating the hash array .
+        hashArray[i+1][s[i]-'a']++ ;
+    }
+
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j < 26; j++) { // Calculating the PrefixSum of the Hash Array.
+            hashArray[i][j] += hashArray[i][j - 1];
+        }
+    }
+
+    ll query ; cin >> query ; 
+    while(query-->0){
+
+        ll l , r ; cin >> l >> r ; ll oddCharCount = 0 ;
+
+        for(int i = 0 ; i < 26 ; i++){
+            ll cnt = hashArray[r][i] - hashArray[l-1][i] ;
+            if(isOdd(cnt)) oddCharCount++ ; 
+        }
+
+        if(oddCharCount>1) no ;
+        else yes ;
+
+    }
+}
