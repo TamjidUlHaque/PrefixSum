@@ -1,0 +1,25 @@
+/*Intuition :-
+    Proshner moddhe bola hoise je amake ekta array dewa hobe n size er . Oi array er ekta range exclude kore baki onghser
+    gcd koto ta bolte hobe . q songkhok query te left and right range dewa thakbe jeita exclude korte hobe .
+
+    Ekhane amader ke precalculation er help nite hobe . Amra prothome e prefixGcd and SuffixGcd calculate kore rekhe dibo  
+    shobgula index er jonno . Then joto tuko exclude kora dorkar oita exclude kore baki tar value print kore dibo .
+*/
+
+
+void giveMeMyGloryBack() {
+
+    ll n ; cin >> n ; vll vec(n+3,0) , preGcd(n+3,0) , sufGcd(n+3,0) ;
+    
+    for(int i = 1 ; i <= n ; i++) cin >> vec[i] ; 
+
+    for(int i = 1 ; i <= n ; i++) preGcd[i] = __gcd(preGcd[i-1],vec[i]) ;
+    for(int i = n ; i >= 1 ; i--) sufGcd[i] = __gcd(sufGcd[i+1],vec[i]) ;
+
+    ll query ; cin >> query ; 
+
+    while(query--){
+        ll l , r ; cin >> l >> r ; 
+        cout << __gcd(preGcd[l-1],sufGcd[r+1]) << endl ;
+    }
+}
